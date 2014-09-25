@@ -236,9 +236,14 @@ class DownloadManager
 
         if ('dist' === $installationSource) {
             $initialType = $initial->getDistType();
-            $targetType  = $target->getDistType();
         } else {
             $initialType = $initial->getSourceType();
+        }
+
+        $installationSourceTarget = $target->getInstallationSource();
+        if ('dist' === $installationSourceTarget) {
+            $targetType  = $target->getDistType();
+        } else {
             $targetType  = $target->getSourceType();
         }
 
@@ -255,7 +260,7 @@ class DownloadManager
             $downloader->update($initial, $target, $targetDir);
         } else {
             $downloader->remove($initial, $targetDir);
-            $this->download($target, $targetDir, 'source' === $installationSource);
+            $this->download($target, $targetDir, 'source' === $installationSourceTarget);
         }
     }
 
